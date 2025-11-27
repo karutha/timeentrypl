@@ -53,21 +53,16 @@ def render():
             st.markdown(f"### {item['label']}")
             
             for uid, user_data in item['users'].items():
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-label" style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">{user_data['name']}</div>
-                    <div style="display: flex; justify-content: space-around; margin-top: 0.5rem;">
-                        <div>
-                            <div style="font-size: 0.875rem; color: #94a3b8;">Period Hours</div>
-                            <div class="metric-value" style="font-size: 1.5rem;">{user_data['total']:.2f}</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 0.875rem; color: #94a3b8;">Cumulative</div>
-                            <div class="metric-value" style="font-size: 1.5rem; color: #22c55e;">{user_data['cumulative']:.2f}</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-bottom: 0.75rem;"></div>
-                """, unsafe_allow_html=True)
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric(
+                        label=f"{user_data['name']} - Period Hours",
+                        value=f"{user_data['total']:.2f} hrs"
+                    )
+                with col2:
+                    st.metric(
+                        label=f"{user_data['name']} - Cumulative",
+                        value=f"{user_data['cumulative']:.2f} hrs"
+                    )
             
-            st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+            st.divider()

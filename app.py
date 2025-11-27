@@ -1,6 +1,5 @@
 """TimeTracker - Main Application Entry Point."""
 import streamlit as st
-from utils import apply_custom_styles
 from pages import time_entry, summary, users, payments, periods
 
 # --- Configuration ---
@@ -10,9 +9,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# --- Apply Custom Styling ---
-apply_custom_styles()
 
 # --- Sidebar Navigation ---
 st.sidebar.title("TimeTracker")
