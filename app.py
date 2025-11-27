@@ -81,8 +81,8 @@ if page == "Time Entry":
             
             selected_user_name = st.selectbox("User", user_names if user_names else ["No users found"])
             entry_date = st.date_input("Date", date.today())
-            start_time = st.time_input("Start Time", datetime.now().time())
-            end_time = st.time_input("End Time", datetime.now().time())
+            start_time = st.time_input("Start Time", datetime.strptime("09:00", "%H:%M").time(), step=60)
+            end_time = st.time_input("End Time", datetime.strptime("17:00", "%H:%M").time(), step=60)
             
             submitted = st.form_submit_button("Log Time")
             
