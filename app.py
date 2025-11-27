@@ -10,8 +10,18 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Reduce gaps with CSS
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 0rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- Sidebar Navigation ---
-st.sidebar.title("TimeTracker")
+st.sidebar.title("⏱️ TimeTracker")
 page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
 
 # --- Route to Appropriate Page ---
@@ -25,3 +35,4 @@ elif page == "Payments":
     payments.render()
 elif page == "Periods":
     periods.render()
+

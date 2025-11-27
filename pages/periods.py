@@ -5,7 +5,7 @@ import data_manager as dm
 
 def render():
     """Render the Periods page."""
-    st.title("Manage Periods")
+    st.subheader("Manage Periods")
     
     periods = dm.get_periods()
     periods.sort(key=lambda x: (x['year'], x['periodNum']), reverse=True)

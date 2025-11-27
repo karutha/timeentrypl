@@ -4,7 +4,7 @@ import data_manager as dm
 
 def render():
     """Render the Payments page."""
-    st.title("Payment Tracking")
+    st.subheader("Payment Tracking")
     
     periods = dm.get_periods()
     # Sort periods desc
@@ -14,7 +14,7 @@ def render():
     selected_period_label = st.selectbox("Select Period", list(period_options.keys()))
     selected_period_id = period_options[selected_period_label]
     
-    st.subheader(f"Status for {selected_period_label}")
+    st.markdown(f"**{selected_period_label}**")
     
     users = dm.get_users()
     
@@ -26,7 +26,6 @@ def render():
     c4.markdown("**Status**")
     c5.markdown("**Notes**")
     c6.markdown("**Action**")
-    st.divider()
     
     for user in users:
         c1, c2, c3, c4, c5, c6 = st.columns([2, 1.5, 1.5, 2, 3, 1])
@@ -52,4 +51,3 @@ def render():
             dm.save_payment(selected_period_id, user['id'], new_status, new_notes)
             st.success("Saved")
             st.rerun()
-        st.divider()

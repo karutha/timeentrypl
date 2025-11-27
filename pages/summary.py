@@ -4,7 +4,7 @@ import data_manager as dm
 
 def render():
     """Render the Summary page."""
-    st.title("Bi-Weekly Summary")
+    st.subheader("Bi-Weekly Summary")
     
     entries = dm.get_entries()
     periods = dm.get_periods()
@@ -50,7 +50,7 @@ def render():
         
         # Display (already in reverse chronological order)
         for item in sorted_summary:
-            st.markdown(f"### {item['label']}")
+            st.markdown(f"**{item['label']}**")
             
             for uid, user_data in item['users'].items():
                 col1, col2 = st.columns(2)
@@ -64,5 +64,4 @@ def render():
                         label=f"{user_data['name']} - Cumulative",
                         value=f"{user_data['cumulative']:.2f} hrs"
                     )
-            
-            st.divider()
+

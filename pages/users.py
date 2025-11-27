@@ -4,7 +4,7 @@ import data_manager as dm
 
 def render():
     """Render the Users page."""
-    st.title("Manage Users")
+    st.subheader("Manage Users")
     
     with st.form("user_form"):
         c1, c2, c3, c4 = st.columns([3, 2, 1, 1])
@@ -16,7 +16,6 @@ def render():
             is_active = st.checkbox("Active", value=True)
         with c4:
             st.write("")  # Spacer
-            st.write("")
             submitted = st.form_submit_button("Add User")
             
         if submitted and new_name:
@@ -24,7 +23,7 @@ def render():
             st.success(f"User {new_name} added!")
             st.rerun()
             
-    st.subheader("Existing Users")
+    st.markdown("**Existing Users**")
     users = dm.get_users()
     
     if users:
@@ -36,6 +35,5 @@ def render():
             if c4.button("🗑️", key=f"del_user_{u['id']}"):
                 dm.delete_user(u['id'])
                 st.rerun()
-            st.divider()
     else:
         st.info("No users found.")
