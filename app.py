@@ -1,6 +1,6 @@
 """TimeTracker - Main Application Entry Point."""
 import streamlit as st
-from pages import time_entry, summary, users, payments, periods
+from modules import time_entry, summary, users, payments, periods
 
 # --- Configuration ---
 st.set_page_config(
