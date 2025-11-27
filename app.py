@@ -185,7 +185,7 @@ elif page == "Users":
         with c1:
             new_name = st.text_input("Name")
         with c2:
-            new_role = st.selectbox("Role", ["Employee", "Contractor", "Manager", "Admin"])
+            new_role = st.selectbox("Role", ["MOA", "PA", "RPH", "AA"])
         with c3:
             is_active = st.checkbox("Active", value=True)
         with c4:

@@ -33,12 +33,12 @@ def get_users():
     # Ensure defaults
     for user in users:
         if 'role' not in user:
-            user['role'] = 'Employee'
+            user['role'] = 'MOA'
         if 'active' not in user:
             user['active'] = True
     return users
 
-def save_user(name, role='Employee', active=True):
+def save_user(name, role='MOA', active=True):
     users = get_users()
     new_user = {
         "id": str(int(datetime.now().timestamp() * 1000)),
