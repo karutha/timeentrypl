@@ -12,7 +12,7 @@ def render():
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        st.markdown("**Add New Entry**")
+        st.subheader("Add New Entry")
         with st.form("entry_form"):
             users = dm.get_users()
             active_users = [u for u in users if u['active']]
@@ -52,7 +52,7 @@ def render():
                     st.rerun()
 
     with col2:
-        st.markdown("**Recent Entries**")
+        st.subheader("Recent Entries")
         
         # User filter for entries
         users = dm.get_users()
