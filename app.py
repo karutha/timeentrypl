@@ -114,7 +114,20 @@ if page == "Time Entry":
 
     with col2:
         st.subheader("Recent Entries")
+        
+        # User filter for entries
+        users = dm.get_users()
+        all_users = [u for u in users if u['active']]
+        user_filter_options = ["All Users"] + [u['name'] for u in all_users]
+        selected_filter = st.selectbox("Filter by User", user_filter_options, key="entry_filter")
+        
         entries = dm.get_entries()
+        
+        # Apply user filter
+        if selected_filter != "All Users":
+            selected_user_id = next((u['id'] for u in all_users if u['name'] == selected_filter), None)
+            if selected_user_id:
+                entries = [e for e in entries if e['userId'] == selected_user_id]
         
         if entries:
             # Sort by date desc, then start time desc
