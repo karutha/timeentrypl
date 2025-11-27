@@ -179,11 +179,27 @@ elif page == "Summary":
         # Sort
         sorted_summary = sorted(summary_data.values(), key=lambda x: (x['year'], x['num']), reverse=True)
         
+        # Calculate cumulative totals
+        cumulative = 0
+        for item in reversed(sorted_summary):  # Reverse to calculate from earliest to latest
+            item['cumulative'] = cumulative + item['total']
+            cumulative = item['cumulative']
+        
+        # Display (already in reverse chronological order)
         for item in sorted_summary:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-label">{item['label']}</div>
-                <div class="metric-value">{item['total']:.2f} hrs</div>
+                <div style="display: flex; justify-content: space-around; margin-top: 0.5rem;">
+                    <div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Period Hours</div>
+                        <div class="metric-value" style="font-size: 1.5rem;">{item['total']:.2f}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Cumulative</div>
+                        <div class="metric-value" style="font-size: 1.5rem; color: #22c55e;">{item['cumulative']:.2f}</div>
+                    </div>
+                </div>
             </div>
             <div style="margin-bottom: 1rem;"></div>
             """, unsafe_allow_html=True)
