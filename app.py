@@ -89,17 +89,28 @@ if page == "Time Entry":
             if submitted and selected_user_name != "No users found":
                 selected_user = next(u for u in active_users if u['name'] == selected_user_name)
                 
-                entry_data = {
-                    "userId": selected_user['id'],
-                    "userName": selected_user['name'], # Store name for easier display
-                    "date": entry_date.strftime("%Y-%m-%d"),
-                    "startTime": start_time.strftime("%H:%M"),
-                    "endTime": end_time.strftime("%H:%M")
-                }
+                # Check if entry already exists for this user on this date
+                existing_entries = dm.get_entries()
+                date_str = entry_date.strftime("%Y-%m-%d")
+                duplicate = any(
+                    e['userId'] == selected_user['id'] and e['date'] == date_str 
+                    for e in existing_entries
+                )
                 
-                dm.save_entry(entry_data)
-                st.success("Entry saved!")
-                st.rerun()
+                if duplicate:
+                    st.error(f"⚠️ An entry already exists for {selected_user['name']} on {date_str}. Only one entry per user per day is allowed.")
+                else:
+                    entry_data = {
+                        "userId": selected_user['id'],
+                        "userName": selected_user['name'], # Store name for easier display
+                        "date": date_str,
+                        "startTime": start_time.strftime("%H:%M"),
+                        "endTime": end_time.strftime("%H:%M")
+                    }
+                    
+                    dm.save_entry(entry_data)
+                    st.success("Entry saved!")
+                    st.rerun()
 
     with col2:
         st.subheader("Recent Entries")
