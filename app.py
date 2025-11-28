@@ -1,9 +1,11 @@
+```python
 """TimeTracker - Main Application Entry Point."""
 import streamlit as st
 from modules import time_entry, summary, users, payments, periods
 
 # --- Configuration ---
 st.set_page_config(
+    page_title="PHARMALIFE TimeTracker",
     page_icon="⏱️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -13,7 +15,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .block-container {
-            padding-top: 1rem;
+            padding-top: 2rem;
             padding-bottom: 0rem;
         }
     </style>
@@ -22,6 +24,9 @@ st.markdown("""
 # --- Sidebar Navigation ---
 st.sidebar.title("TimeTracker")
 page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
+
+# --- Main Header ---
+st.markdown("# PHARMALIFE")
 
 # --- Route to Appropriate Page ---
 if page == "Time Entry":
