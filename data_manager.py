@@ -30,7 +30,21 @@ def _save_json(filepath, data):
 # --- Users ---
 def get_users():
     users = _load_json(USERS_FILE)
-    # Ensure defaults
+    
+    # If no users exist, create a default Admin user
+    if not users:
+        default_admin = {
+            "id": str(int(datetime.now().timestamp() * 1000)),
+            "name": "Admin",
+            "role": "Admin",
+            "active": True,
+            "password": "admin",
+            "assigned_apps": ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"]
+        }
+        users.append(default_admin)
+        _save_json(USERS_FILE, users)
+        
+    # Ensure defaults for existing users
     for user in users:
         if 'role' not in user:
             user['role'] = 'MOA'
