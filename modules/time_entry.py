@@ -10,7 +10,7 @@ def render():
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        st.text("Add New Entry")
+        st.markdown("**Add New Entry**")
         with st.form("entry_form"):
             users = dm.get_users()
             active_users = [u for u in users if u['active']]
@@ -55,7 +55,7 @@ def render():
                     st.rerun()
 
     with col2:
-        st.subheader("Recent Entries")
+        st.markdown("**Recent Entries**")
         
         # Resource filter for entries
         users = dm.get_users()
