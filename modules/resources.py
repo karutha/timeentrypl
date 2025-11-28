@@ -1,36 +1,36 @@
-"""Users management page with full CRUD operations."""
+"""Resource management page with full CRUD operations."""
 import streamlit as st
 import data_manager as dm
 
 def render():
-    """Render the Users management page."""
-    st.subheader("User Management")
+    """Render the Resource management page."""
+    st.subheader("Resource Management")
     
-    # Create new user section
-    st.markdown("**Add New User**")
-    with st.form("user_form"):
+    # Create new resource section
+    st.markdown("**Add New Resource**")
+    with st.form("resource_form"):
         c1, c2, c3, c4 = st.columns([3, 2, 1, 1])
         with c1:
-            new_name = st.text_input("Name", placeholder="Enter user name")
+            new_name = st.text_input("Name", placeholder="Enter resource name")
         with c2:
             new_role = st.selectbox("Role", ["MOA", "PA", "RPH", "AA"])
         with c3:
             is_active = st.checkbox("Active", value=True)
         with c4:
             st.write("")  # Spacer
-            submitted = st.form_submit_button("Add User")
+            submitted = st.form_submit_button("Add")
             
         if submitted and new_name:
             dm.save_user(new_name, new_role, is_active)
-            st.success(f"User {new_name} added!")
+            st.success(f"Resource {new_name} added!")
             st.rerun()
         elif submitted and not new_name:
             st.error("Please enter a name")
     
     st.divider()
     
-    # List and manage existing users
-    st.markdown("**Existing Users**")
+    # List and manage existing resources
+    st.markdown("**Existing Resources**")
     users = dm.get_users()
     
     if users:
@@ -45,7 +45,7 @@ def render():
         for u in users:
             c1, c2, c3, c4, c5 = st.columns([3, 2, 1, 1, 1])
             
-            # Display user info
+            # Display resource info
             c1.write(u['name'])
             c2.write(u['role'])
             c3.write("✅" if u['active'] else "❌")
@@ -57,7 +57,7 @@ def render():
             # Delete button
             if c5.button("🗑️", key=f"del_user_{u['id']}"):
                 dm.delete_user(u['id'])
-                st.success(f"User {u['name']} deleted!")
+                st.success(f"Resource {u['name']} deleted!")
                 st.rerun()
             
             # Edit form (shown when edit button is clicked)
@@ -75,11 +75,11 @@ def render():
                             if st.form_submit_button("Save Changes"):
                                 dm.update_user(u['id'], edit_name, edit_role, edit_active)
                                 st.session_state[f"editing_{u['id']}"] = False
-                                st.success(f"User {edit_name} updated!")
+                                st.success(f"Resource {edit_name} updated!")
                                 st.rerun()
                         with col_cancel:
                             if st.form_submit_button("Cancel"):
                                 st.session_state[f"editing_{u['id']}"] = False
                                 st.rerun()
     else:
-        st.info("No users found. Add a user to get started.")
+        st.info("No resources found. Add a resource to get started.")
