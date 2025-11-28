@@ -36,15 +36,25 @@ def get_users():
             user['role'] = 'MOA'
         if 'active' not in user:
             user['active'] = True
+        if 'password' not in user:
+            user['password'] = "" # Default empty password
+        if 'assigned_apps' not in user:
+            # Default to all apps if not specified
+            user['assigned_apps'] = ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"]
     return users
 
-def save_user(name, role='MOA', active=True):
+def save_user(name, role='MOA', active=True, password="", assigned_apps=None):
     users = get_users()
+    if assigned_apps is None:
+        assigned_apps = ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"]
+        
     new_user = {
         "id": str(int(datetime.now().timestamp() * 1000)),
         "name": name,
         "role": role,
-        "active": active
+        "active": active,
+        "password": password,
+        "assigned_apps": assigned_apps
     }
     users.append(new_user)
     _save_json(USERS_FILE, users)
@@ -54,6 +64,10 @@ def update_user(user_id, user_data):
     users = get_users()
     for i, user in enumerate(users):
         if user['id'] == user_id:
+            # specific handling for password update to avoid overwriting with empty if not provided
+            if 'password' in user_data and not user_data['password']:
+                del user_data['password']
+                
             users[i].update(user_data)
             _save_json(USERS_FILE, users)
             return users[i]

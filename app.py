@@ -18,6 +18,8 @@ if 'full_name' not in st.session_state:
     st.session_state.full_name = ""
 if 'role' not in st.session_state:
     st.session_state.role = ""
+if 'assigned_apps' not in st.session_state:
+    st.session_state.assigned_apps = []
 
 # Reduce gaps with CSS
 st.markdown("""
@@ -60,10 +62,17 @@ else:
         st.session_state.full_name = ""
         st.session_state.role = ""
         st.session_state.user_id = ""
+        st.session_state.assigned_apps = []
         st.rerun()
     
     st.sidebar.divider()
-    page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"])
+    
+    # Filter apps based on assignment
+    available_apps = st.session_state.assigned_apps
+    if not available_apps:
+        available_apps = ["Time Entry"] # Fallback
+        
+    page = st.sidebar.radio("Navigate", available_apps)
     
     # --- Route to Appropriate Page ---
     if page == "Time Entry":

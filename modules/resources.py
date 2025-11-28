@@ -9,19 +9,24 @@ def render():
     # Create new resource section
     st.markdown("**Add New Resource**")
     with st.form("resource_form"):
-        c1, c2, c3, c4 = st.columns([3, 2, 1, 1])
+        c1, c2, c3, c4 = st.columns([3, 2, 2, 1])
         with c1:
             new_name = st.text_input("Name", placeholder="Enter resource name")
         with c2:
             new_role = st.selectbox("Role", ["MOA", "PA", "RPH", "AA"])
         with c3:
-            is_active = st.checkbox("Active", value=True)
+            new_password = st.text_input("Password", type="password", placeholder="Optional")
         with c4:
-            st.write("")  # Spacer
-            submitted = st.form_submit_button("Add")
+            is_active = st.checkbox("Active", value=True)
+            
+        assigned_apps = st.multiselect("Assigned Apps", 
+                                     ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"],
+                                     default=["Time Entry", "Summary", "Resource Management", "Payments", "Periods"])
+        
+        submitted = st.form_submit_button("Add")
             
         if submitted and new_name:
-            dm.save_user(new_name, new_role, is_active)
+            dm.save_user(new_name, new_role, is_active, new_password, assigned_apps)
             st.success(f"Resource {new_name} added!")
             st.rerun()
         elif submitted and not new_name:
@@ -70,10 +75,24 @@ def render():
                                                 key=f"edit_role_{u['id']}")
                         edit_active = st.checkbox("Active", value=u['active'], key=f"edit_active_{u['id']}")
                         
+                        edit_password = st.text_input("New Password", type="password", placeholder="Leave blank to keep unchanged", key=f"edit_pass_{u['id']}")
+                        
+                        current_apps = u.get('assigned_apps', ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"])
+                        edit_apps = st.multiselect("Assigned Apps", 
+                                                 ["Time Entry", "Summary", "Resource Management", "Payments", "Periods"],
+                                                 default=current_apps,
+                                                 key=f"edit_apps_{u['id']}")
+                        
                         col_save, col_cancel = st.columns(2)
                         with col_save:
                             if st.form_submit_button("Save Changes"):
-                                dm.update_user(u['id'], edit_name, edit_role, edit_active)
+                                dm.update_user(u['id'], {
+                                    "name": edit_name, 
+                                    "role": edit_role, 
+                                    "active": edit_active, 
+                                    "password": edit_password,
+                                    "assigned_apps": edit_apps
+                                })
                                 st.session_state[f"editing_{u['id']}"] = False
                                 st.success(f"Resource {edit_name} updated!")
                                 st.rerun()
