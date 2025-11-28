@@ -10,7 +10,7 @@ def render():
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        st.subheader("Add New Entry")
+        st.text("Add New Entry")
         with st.form("entry_form"):
             users = dm.get_users()
             active_users = [u for u in users if u['active']]

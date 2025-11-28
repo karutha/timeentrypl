@@ -4,7 +4,7 @@ import data_manager as dm
 
 def render():
     """Render the Summary page."""
-    st.subheader("Bi-Weekly Summary")
+    st.text("Bi-Weekly Summary")
     
     entries = dm.get_entries()
     periods = dm.get_periods()
