@@ -19,8 +19,8 @@ def render():
             return
         
         user_names = [u['name'] for u in active_users]
-        selected_name = st.selectbox("Select Resource", user_names)
-        password = st.text_input("Password", type="password")
+        selected_name = st.selectbox("Select User", user_names)
+        password = st.text_input("Password", type="password", key="login_password")
         
         submitted = st.form_submit_button("Login")
         
