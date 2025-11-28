@@ -16,7 +16,12 @@ def render():
             active_users = [u for u in users if u['active']]
             user_names = [u['name'] for u in active_users]
             
-            selected_user_name = st.selectbox("Resource", user_names if user_names else ["No resources found"])
+            # Default to logged-in user if available
+            default_index = 0
+            if st.session_state.full_name in user_names:
+                default_index = user_names.index(st.session_state.full_name)
+            
+            selected_user_name = st.selectbox("Resource", user_names if user_names else ["No resources found"], index=default_index)
             entry_date = st.date_input("Date", date.today())
             start_time = st.time_input("Start Time", datetime.strptime("09:00", "%H:%M").time(), step=60)
             end_time = st.time_input("End Time", datetime.strptime("17:00", "%H:%M").time(), step=60)
