@@ -21,7 +21,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Sidebar Navigation ---
-st.sidebar.title("⏱️ PHARMALIFE")
+st.sidebar.title("PHARMALIFE")
+st.sidebar.markdown("### TimeTracker")
 page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
 
 # --- Route to Appropriate Page ---
