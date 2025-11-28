@@ -16,17 +16,17 @@ def render():
             active_users = [u for u in users if u['active']]
             user_names = [u['name'] for u in active_users]
             
-            selected_user_name = st.selectbox("User", user_names if user_names else ["No users found"])
+            selected_user_name = st.selectbox("Resource", user_names if user_names else ["No resources found"])
             entry_date = st.date_input("Date", date.today())
             start_time = st.time_input("Start Time", datetime.strptime("09:00", "%H:%M").time(), step=60)
             end_time = st.time_input("End Time", datetime.strptime("17:00", "%H:%M").time(), step=60)
             
             submitted = st.form_submit_button("Log Time")
             
-            if submitted and selected_user_name != "No users found":
+            if submitted and selected_user_name != "No resources found":
                 selected_user = next(u for u in active_users if u['name'] == selected_user_name)
                 
-                # Check if entry already exists for this user on this date
+                # Check if entry already exists for this resource on this date
                 existing_entries = dm.get_entries()
                 date_str = entry_date.strftime("%Y-%m-%d")
                 duplicate = any(
@@ -35,7 +35,7 @@ def render():
                 )
                 
                 if duplicate:
-                    st.error(f"⚠️ An entry already exists for {selected_user['name']} on {date_str}. Only one entry per user per day is allowed.")
+                    st.error(f"⚠️ An entry already exists for {selected_user['name']} on {date_str}. Only one entry per resource per day is allowed.")
                 else:
                     entry_data = {
                         "userId": selected_user['id'],
@@ -52,16 +52,16 @@ def render():
     with col2:
         st.subheader("Recent Entries")
         
-        # User filter for entries
+        # Resource filter for entries
         users = dm.get_users()
         all_users = [u for u in users if u['active']]
-        user_filter_options = ["All Users"] + [u['name'] for u in all_users]
-        selected_filter = st.selectbox("Filter by User", user_filter_options, key="entry_filter")
+        user_filter_options = ["All Resources"] + [u['name'] for u in all_users]
+        selected_filter = st.selectbox("Filter by Resource", user_filter_options, key="entry_filter")
         
         entries = dm.get_entries()
         
-        # Apply user filter
-        if selected_filter != "All Users":
+        # Apply resource filter
+        if selected_filter != "All Resources":
             selected_user_id = next((u['id'] for u in all_users if u['name'] == selected_filter), None)
             if selected_user_id:
                 entries = [e for e in entries if e['userId'] == selected_user_id]

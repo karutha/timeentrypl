@@ -14,12 +14,12 @@ def render():
         active_users = [u for u in users if u['active']]
         
         if not active_users:
-            st.error("No active users found. Please contact your administrator.")
+            st.error("No active resources found. Please contact your administrator.")
             st.form_submit_button("Login", disabled=True)
             return
         
         user_names = [u['name'] for u in active_users]
-        selected_name = st.selectbox("Select User", user_names)
+        selected_name = st.selectbox("Select Resource", user_names)
         
         submitted = st.form_submit_button("Login")
         

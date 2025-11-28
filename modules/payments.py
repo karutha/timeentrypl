@@ -20,7 +20,7 @@ def render():
     
     # Header
     c1, c2, c3, c4, c5, c6 = st.columns([2, 1.5, 1.5, 2, 3, 1])
-    c1.markdown("**User**")
+    c1.markdown("**Resource**")
     c2.markdown("**Role**")
     c3.markdown("**Hours**")
     c4.markdown("**Status**")
