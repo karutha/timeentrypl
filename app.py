@@ -1,6 +1,7 @@
 """TimeTracker - Main Application Entry Point."""
 import streamlit as st
-from pages import time_entry, summary, users, payments, periods, login
+from modules import time_entry, summary, users, payments, periods
+from pages import login
 
 # --- Configuration ---
 st.set_page_config(
@@ -62,7 +63,7 @@ else:
         st.rerun()
     
     st.sidebar.divider()
-    page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
+    page = st.sidebar.radio("", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
     
     # --- Route to Appropriate Page ---
     if page == "Time Entry":

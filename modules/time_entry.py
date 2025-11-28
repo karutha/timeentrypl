@@ -5,10 +5,8 @@ from datetime import datetime, date
 import data_manager as dm
 
 def render():
-    """Render the Time Entry page."""
-    """Render the Time Entry page."""
-
     
+    """Render the Time Entry page."""
     col1, col2 = st.columns([1, 2])
     
     with col1:
