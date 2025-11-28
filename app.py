@@ -1,4 +1,3 @@
-```python
 """TimeTracker - Main Application Entry Point."""
 import streamlit as st
 from modules import time_entry, summary, users, payments, periods
