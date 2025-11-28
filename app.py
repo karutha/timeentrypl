@@ -4,7 +4,6 @@ from modules import time_entry, summary, users, payments, periods
 
 # --- Configuration ---
 st.set_page_config(
-    page_title="PHARMALIFE",
     page_icon="⏱️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -14,15 +13,14 @@ st.set_page_config(
 st.markdown("""
     <style>
         .block-container {
-            padding-top: 2rem;
+            padding-top: 1rem;
             padding-bottom: 0rem;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # --- Sidebar Navigation ---
-st.sidebar.title("PHARMALIFE")
-st.sidebar.markdown("### TimeTracker")
+st.sidebar.markdown("TimeTracker")
 page = st.sidebar.radio("Navigate", ["Time Entry", "Summary", "Users", "Payments", "Periods"])
 
 # --- Route to Appropriate Page ---
