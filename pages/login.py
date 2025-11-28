@@ -5,7 +5,7 @@ import data_manager as dm
 def render():
     """Render the login page."""
     st.markdown("# PHARMALIFE")
-    st.markdown("### TimeTracker Login")
+    st.subheader("Login")
     
     with st.form("login_form"):
         st.markdown("**Please select your name to continue**")

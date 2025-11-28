@@ -71,6 +71,15 @@ def render():
             entries.sort(key=lambda x: (x['date'], x['startTime']), reverse=True)
             
             # Display entries
+            # Header row
+            c1, c2, c3, c4, c5, c6 = st.columns([2, 2, 3, 2, 1, 1])
+            c1.markdown("**Date**")
+            c2.markdown("**Resource**")
+            c3.markdown("**Period**")
+            c4.markdown("**Time**")
+            c5.markdown("**Hrs**")
+            c6.markdown("**Del**")
+            
             for e in entries:
                 period_label = e['period']['label'] if e.get('period') else "Unknown"
                 c1, c2, c3, c4, c5, c6 = st.columns([2, 2, 3, 2, 1, 1])
