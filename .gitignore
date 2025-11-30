@@ -37,3 +37,4 @@ env/
 
 # Data files (local storage)
 data/
+backups/
