@@ -184,29 +184,29 @@ def render():
     for item in sorted_summary:
         html_content += f"""
 <div class="summary-card">
-    <div class="card-header">
-        <div class="period-label">{item['label']}</div>
-        <div class="period-badge">Period {item['num']}</div>
-    </div>
+<div class="card-header">
+<div class="period-label">{item['label']}</div>
+<div class="period-badge">Period {item['num']}</div>
+</div>
 """
         
         for uid, user_data in item['users'].items():
             initials = "".join([n[0] for n in user_data['name'].split()[:2]]).upper()
             html_content += f"""
-    <div class="user-row">
-        <div class="user-name">
-            <div class="user-avatar">{initials}</div>
-            {user_data['name']}
-        </div>
-        <div class="stat-col">
-            <span class="stat-value">{user_data['total']:.2f}h</span>
-            <span class="stat-label">Period</span>
-        </div>
-        <div class="stat-col">
-            <span class="stat-value">{user_data['cumulative']:.2f}h</span>
-            <span class="stat-label">Cumulative</span>
-        </div>
-    </div>
+<div class="user-row">
+<div class="user-name">
+<div class="user-avatar">{initials}</div>
+{user_data['name']}
+</div>
+<div class="stat-col">
+<span class="stat-value">{user_data['total']:.2f}h</span>
+<span class="stat-label">Period</span>
+</div>
+<div class="stat-col">
+<span class="stat-value">{user_data['cumulative']:.2f}h</span>
+<span class="stat-label">Cumulative</span>
+</div>
+</div>
 """
             
         html_content += "</div>"
